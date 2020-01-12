@@ -30,6 +30,7 @@ services:
     stdin_open: true
     env_file:
       - ./vars.env
+      - ./bot_secret.env
     environment:
       - SKIP_YARN=true
       - REDIS_URL=redis://redis
