@@ -1,7 +1,7 @@
 # Debian stretch is version 9 of the OS and is the current stable
 # version as of this writing. If this is ever changed to a different
 # OS version, the repo addition commands below might need to be updated.
-FROM ruby:2.7.0
+FROM ruby:2.7.1
 
 EXPOSE 3000
 WORKDIR /app
