@@ -19,6 +19,11 @@ services:
     ports:
       - "5432:5432"
 
+  redis:
+    image: redis
+    logging:
+      driver: "none"
+
   ##############
   # BOT SERVER #
   ##############
@@ -31,14 +36,31 @@ services:
     env_file:
       - ./vars.env
       - ./bot_secret.env
-    environment:
-      - SKIP_YARN=true
-      - REDIS_URL=redis://redis
     depends_on:
       - postgres
     ports:
       - "3001:3000"
     links:
+      - postgres
+    volumes:
+      - ../bot_man:/app:delegated
+      - bundle_cache:/bundle
+
+  backend-sidekiq:
+    image: bot_boot_backend:latest
+    tty: true
+    command: sidekiq
+    stdin_open: true
+    env_file:
+      - ./vars.env
+      - ./bot_secret.env
+    environment:
+      - BACKGROUND_WORKER=true
+    depends_on:
+      - redis
+      - postgres
+    links:
+      - redis
       - postgres
     volumes:
       - ../bot_man:/app:delegated
