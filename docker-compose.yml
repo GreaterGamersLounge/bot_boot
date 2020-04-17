@@ -37,10 +37,12 @@ services:
       - ./vars.env
       - ./bot_secret.env
     depends_on:
+      - redis
       - postgres
     ports:
       - "3001:3000"
     links:
+      - redis
       - postgres
     volumes:
       - ../bot_man:/app:delegated
