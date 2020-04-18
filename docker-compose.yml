@@ -21,6 +21,7 @@ services:
 
   redis:
     image: redis
+    command: redis-server --requirepass bot_man_123
     logging:
       driver: "none"
 
