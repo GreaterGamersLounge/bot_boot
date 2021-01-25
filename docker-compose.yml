@@ -18,6 +18,8 @@ services:
       driver: "none"
     ports:
       - "5432:5432"
+    env_file:
+      - ./vars.env
 
   redis:
     image: redis
